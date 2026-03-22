@@ -3,6 +3,8 @@
 > A lightweight utility-first CSS engine built from scratch using JavaScript.
 > Inspired by Tailwind CSS — but brewed your way.
 
+🌐 **Live Demo** → [jemin7.github.io/my_own_Tailwind](https://jemin7.github.io/my_own_Tailwind/)
+
 ---
 
 ## 🧠 What is this?
@@ -272,6 +274,8 @@ Built as part of the **Web Dev Cohort 2026** Buildathon by **ChaiCode**.
 ---
 
 ## 📸 Demo
+
+🌐 **Live →** [jemin7.github.io/my_own_Tailwind](https://jemin7.github.io/my_own_Tailwind/)
 
 Open `demo.html` with Live Server to see all utilities in action — colors, typography, flexbox, grid, spacing, borders, shadows, arbitrary values, and more.
 
