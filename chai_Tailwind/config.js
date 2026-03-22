@@ -1,0 +1,564 @@
+// chai-tailwind | config.js
+// Tailwind-inspired config adapted for the ChaiTailwind engine.
+// Spacing scale: 1px per unit  →  chai-p-4 = padding: 4px
+// Colors: Full Tailwind palette (shades 50–950)
+// Loading: ES Module  →  import { ChaiConfig } from './config.js'
+
+export const ChaiConfig = {
+
+  // ─── SPACING ───────────────────────────────────────────────────────────────
+  // 1 unit = 1px
+  // Used by: padding, margin, gap, width, height, etc.
+  spacing: {
+    0:   "0px",
+    px:  "1px",
+    0.5: "0.5px",
+    1:   "1px",
+    1.5: "1.5px",
+    2:   "2px",
+    2.5: "2.5px",
+    3:   "3px",
+    3.5: "3.5px",
+    4:   "4px",
+    5:   "5px",
+    6:   "6px",
+    7:   "7px",
+    8:   "8px",
+    9:   "9px",
+    10:  "10px",
+    11:  "11px",
+    12:  "12px",
+    14:  "14px",
+    16:  "16px",
+    20:  "20px",
+    24:  "24px",
+    28:  "28px",
+    32:  "32px",
+    36:  "36px",
+    40:  "40px",
+    44:  "44px",
+    48:  "48px",
+    52:  "52px",
+    56:  "56px",
+    60:  "60px",
+    64:  "64px",
+    72:  "72px",
+    80:  "80px",
+    96:  "96px",
+  },
+
+  // ─── COLORS ────────────────────────────────────────────────────────────────
+  // Full Tailwind palette.
+  // Usage: chai-bg-red-500 | chai-text-blue-300 | chai-border-zinc-700
+  colors: {
+
+    // Neutrals
+    inherit:      "inherit",
+    current:      "currentColor",
+    transparent:  "transparent",
+    black:        "#000000",
+    white:        "#ffffff",
+
+    slate: {
+      50:  "#f8fafc", 100: "#f1f5f9", 200: "#e2e8f0", 300: "#cbd5e1",
+      400: "#94a3b8", 500: "#64748b", 600: "#475569", 700: "#334155",
+      800: "#1e293b", 900: "#0f172a", 950: "#020617",
+    },
+    gray: {
+      50:  "#f9fafb", 100: "#f3f4f6", 200: "#e5e7eb", 300: "#d1d5db",
+      400: "#9ca3af", 500: "#6b7280", 600: "#4b5563", 700: "#374151",
+      800: "#1f2937", 900: "#111827", 950: "#030712",
+    },
+    zinc: {
+      50:  "#fafafa", 100: "#f4f4f5", 200: "#e4e4e7", 300: "#d4d4d8",
+      400: "#a1a1aa", 500: "#71717a", 600: "#52525b", 700: "#3f3f46",
+      800: "#27272a", 900: "#18181b", 950: "#09090b",
+    },
+    neutral: {
+      50:  "#fafafa", 100: "#f5f5f5", 200: "#e5e5e5", 300: "#d4d4d4",
+      400: "#a3a3a3", 500: "#737373", 600: "#525252", 700: "#404040",
+      800: "#262626", 900: "#171717", 950: "#0a0a0a",
+    },
+    stone: {
+      50:  "#fafaf9", 100: "#f5f5f4", 200: "#e7e5e4", 300: "#d6d3d1",
+      400: "#a8a29e", 500: "#78716c", 600: "#57534e", 700: "#44403c",
+      800: "#292524", 900: "#1c1917", 950: "#0c0a09",
+    },
+
+    // Reds & Pinks
+    red: {
+      50:  "#fef2f2", 100: "#fee2e2", 200: "#fecaca", 300: "#fca5a5",
+      400: "#f87171", 500: "#ef4444", 600: "#dc2626", 700: "#b91c1c",
+      800: "#991b1b", 900: "#7f1d1d", 950: "#450a0a",
+    },
+    orange: {
+      50:  "#fff7ed", 100: "#ffedd5", 200: "#fed7aa", 300: "#fdba74",
+      400: "#fb923c", 500: "#f97316", 600: "#ea580c", 700: "#c2410c",
+      800: "#9a3412", 900: "#7c2d12", 950: "#431407",
+    },
+    amber: {
+      50:  "#fffbeb", 100: "#fef3c7", 200: "#fde68a", 300: "#fcd34d",
+      400: "#fbbf24", 500: "#f59e0b", 600: "#d97706", 700: "#b45309",
+      800: "#92400e", 900: "#78350f", 950: "#451a03",
+    },
+    yellow: {
+      50:  "#fefce8", 100: "#fef9c3", 200: "#fef08a", 300: "#fde047",
+      400: "#facc15", 500: "#eab308", 600: "#ca8a04", 700: "#a16207",
+      800: "#854d0e", 900: "#713f12", 950: "#422006",
+    },
+    lime: {
+      50:  "#f7fee7", 100: "#ecfccb", 200: "#d9f99d", 300: "#bef264",
+      400: "#a3e635", 500: "#84cc16", 600: "#65a30d", 700: "#4d7c0f",
+      800: "#3f6212", 900: "#365314", 950: "#1a2e05",
+    },
+    green: {
+      50:  "#f0fdf4", 100: "#dcfce7", 200: "#bbf7d0", 300: "#86efac",
+      400: "#4ade80", 500: "#22c55e", 600: "#16a34a", 700: "#15803d",
+      800: "#166534", 900: "#14532d", 950: "#052e16",
+    },
+    emerald: {
+      50:  "#ecfdf5", 100: "#d1fae5", 200: "#a7f3d0", 300: "#6ee7b7",
+      400: "#34d399", 500: "#10b981", 600: "#059669", 700: "#047857",
+      800: "#065f46", 900: "#064e3b", 950: "#022c22",
+    },
+    teal: {
+      50:  "#f0fdfa", 100: "#ccfbf1", 200: "#99f6e4", 300: "#5eead4",
+      400: "#2dd4bf", 500: "#14b8a6", 600: "#0d9488", 700: "#0f766e",
+      800: "#115e59", 900: "#134e4a", 950: "#042f2e",
+    },
+    cyan: {
+      50:  "#ecfeff", 100: "#cffafe", 200: "#a5f3fc", 300: "#67e8f9",
+      400: "#22d3ee", 500: "#06b6d4", 600: "#0891b2", 700: "#0e7490",
+      800: "#155e75", 900: "#164e63", 950: "#083344",
+    },
+    sky: {
+      50:  "#f0f9ff", 100: "#e0f2fe", 200: "#bae6fd", 300: "#7dd3fc",
+      400: "#38bdf8", 500: "#0ea5e9", 600: "#0284c7", 700: "#0369a1",
+      800: "#075985", 900: "#0c4a6e", 950: "#082f49",
+    },
+    blue: {
+      50:  "#eff6ff", 100: "#dbeafe", 200: "#bfdbfe", 300: "#93c5fd",
+      400: "#60a5fa", 500: "#3b82f6", 600: "#2563eb", 700: "#1d4ed8",
+      800: "#1e40af", 900: "#1e3a8a", 950: "#172554",
+    },
+    indigo: {
+      50:  "#eef2ff", 100: "#e0e7ff", 200: "#c7d2fe", 300: "#a5b4fc",
+      400: "#818cf8", 500: "#6366f1", 600: "#4f46e5", 700: "#4338ca",
+      800: "#3730a3", 900: "#312e81", 950: "#1e1b4b",
+    },
+    violet: {
+      50:  "#f5f3ff", 100: "#ede9fe", 200: "#ddd6fe", 300: "#c4b5fd",
+      400: "#a78bfa", 500: "#8b5cf6", 600: "#7c3aed", 700: "#6d28d9",
+      800: "#5b21b6", 900: "#4c1d95", 950: "#2e1065",
+    },
+    purple: {
+      50:  "#faf5ff", 100: "#f3e8ff", 200: "#e9d5ff", 300: "#d8b4fe",
+      400: "#c084fc", 500: "#a855f7", 600: "#9333ea", 700: "#7e22ce",
+      800: "#6b21a8", 900: "#581c87", 950: "#3b0764",
+    },
+    fuchsia: {
+      50:  "#fdf4ff", 100: "#fae8ff", 200: "#f5d0fe", 300: "#f0abfc",
+      400: "#e879f9", 500: "#d946ef", 600: "#c026d3", 700: "#a21caf",
+      800: "#86198f", 900: "#701a75", 950: "#4a044e",
+    },
+    pink: {
+      50:  "#fdf2f8", 100: "#fce7f3", 200: "#fbcfe8", 300: "#f9a8d4",
+      400: "#f472b6", 500: "#ec4899", 600: "#db2777", 700: "#be185d",
+      800: "#9d174d", 900: "#831843", 950: "#500724",
+    },
+    rose: {
+      50:  "#fff1f2", 100: "#ffe4e6", 200: "#fecdd3", 300: "#fda4af",
+      400: "#fb7185", 500: "#f43f5e", 600: "#e11d48", 700: "#be123c",
+      800: "#9f1239", 900: "#881337", 950: "#4c0519",
+    },
+  },
+
+  // ─── FONT SIZES ────────────────────────────────────────────────────────────
+  // Usage: chai-text-sm | chai-text-2xl
+  fontSize: {
+    xs:   "0.75rem",    // 12px
+    sm:   "0.875rem",   // 14px
+    base: "1rem",       // 16px
+    lg:   "1.125rem",   // 18px
+    xl:   "1.25rem",    // 20px
+    "2xl": "1.5rem",    // 24px
+    "3xl": "1.875rem",  // 30px
+    "4xl": "2.25rem",   // 36px
+    "5xl": "3rem",      // 48px
+    "6xl": "3.75rem",   // 60px
+    "7xl": "4.5rem",    // 72px
+    "8xl": "6rem",      // 96px
+    "9xl": "8rem",      // 128px
+  },
+
+  // ─── FONT WEIGHT ───────────────────────────────────────────────────────────
+  // Usage: chai-font-bold | chai-font-medium
+  fontWeight: {
+    thin:       "100",
+    extralight: "200",
+    light:      "300",
+    normal:     "400",
+    medium:     "500",
+    semibold:   "600",
+    bold:       "700",
+    extrabold:  "800",
+    black:      "900",
+  },
+
+  // ─── LINE HEIGHT ───────────────────────────────────────────────────────────
+  // Usage: chai-leading-tight | chai-leading-8
+  lineHeight: {
+    none:    "1",
+    tight:   "1.25",
+    snug:    "1.375",
+    normal:  "1.5",
+    relaxed: "1.625",
+    loose:   "2",
+    3:  "0.75rem",
+    4:  "1rem",
+    5:  "1.25rem",
+    6:  "1.5rem",
+    7:  "1.75rem",
+    8:  "2rem",
+    9:  "2.25rem",
+    10: "2.5rem",
+  },
+
+  // ─── LETTER SPACING ────────────────────────────────────────────────────────
+  // Usage: chai-tracking-wide | chai-tracking-tight
+  letterSpacing: {
+    tighter: "-0.05em",
+    tight:   "-0.025em",
+    normal:  "0em",
+    wide:    "0.025em",
+    wider:   "0.05em",
+    widest:  "0.1em",
+  },
+
+  // ─── BORDER RADIUS ─────────────────────────────────────────────────────────
+  // Usage: chai-rounded | chai-rounded-lg | chai-rounded-full
+  borderRadius: {
+    none:  "0px",
+    sm:    "0.125rem",   // 2px
+    DEFAULT: "0.25rem",  // 4px
+    md:    "0.375rem",   // 6px
+    lg:    "0.5rem",     // 8px
+    xl:    "0.75rem",    // 12px
+    "2xl": "1rem",       // 16px
+    "3xl": "1.5rem",     // 24px
+    full:  "9999px",
+  },
+
+  // ─── BORDER WIDTH ──────────────────────────────────────────────────────────
+  // Usage: chai-border | chai-border-2 | chai-border-4
+  borderWidth: {
+    DEFAULT: "1px",
+    0: "0px",
+    2: "2px",
+    4: "4px",
+    8: "8px",
+  },
+
+  // ─── BOX SHADOW ────────────────────────────────────────────────────────────
+  // Usage: chai-shadow | chai-shadow-md | chai-shadow-xl
+  boxShadow: {
+    sm:      "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+    DEFAULT: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+    md:      "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+    lg:      "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+    xl:      "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
+    "2xl":   "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+    inner:   "inset 0 2px 4px 0 rgb(0 0 0 / 0.05)",
+    none:    "none",
+  },
+
+  // ─── OPACITY ───────────────────────────────────────────────────────────────
+  // Usage: chai-opacity-50 | chai-opacity-75
+  opacity: {
+    0:   "0",
+    5:   "0.05",
+    10:  "0.1",
+    20:  "0.2",
+    25:  "0.25",
+    30:  "0.3",
+    40:  "0.4",
+    50:  "0.5",
+    60:  "0.6",
+    70:  "0.7",
+    75:  "0.75",
+    80:  "0.8",
+    90:  "0.9",
+    95:  "0.95",
+    100: "1",
+  },
+
+  // ─── Z-INDEX ───────────────────────────────────────────────────────────────
+  // Usage: chai-z-10 | chai-z-50
+  zIndex: {
+    auto: "auto",
+    0:  "0",
+    10: "10",
+    20: "20",
+    30: "30",
+    40: "40",
+    50: "50",
+  },
+
+  // ─── WIDTH / HEIGHT ────────────────────────────────────────────────────────
+  // Fractional + keyword values (spacing scale handled separately)
+  // Usage: chai-w-full | chai-h-screen | chai-w-1/2
+  sizing: {
+    auto:    "auto",
+    full:    "100%",
+    screen:  "100vw",
+    svw:     "100svw",
+    lvw:     "100lvw",
+    dvw:     "100dvw",
+    min:     "min-content",
+    max:     "max-content",
+    fit:     "fit-content",
+    "1/2":   "50%",
+    "1/3":   "33.333333%",
+    "2/3":   "66.666667%",
+    "1/4":   "25%",
+    "2/4":   "50%",
+    "3/4":   "75%",
+    "1/5":   "20%",
+    "2/5":   "40%",
+    "3/5":   "60%",
+    "4/5":   "80%",
+    "1/6":   "16.666667%",
+    "5/6":   "83.333333%",
+    "1/12":  "8.333333%",
+    "5/12":  "41.666667%",
+    "7/12":  "58.333333%",
+    "11/12": "91.666667%",
+  },
+
+  // ─── HEIGHT-ONLY KEYWORDS ──────────────────────────────────────────────────
+  heightExtra: {
+    screen:  "100vh",
+    svh:     "100svh",
+    lvh:     "100lvh",
+    dvh:     "100dvh",
+  },
+
+  // ─── DISPLAY ───────────────────────────────────────────────────────────────
+  // Usage: chai-block | chai-flex | chai-grid | chai-hidden
+  display: {
+    block:        "block",
+    inline:       "inline",
+    "inline-block": "inline-block",
+    flex:         "flex",
+    "inline-flex": "inline-flex",
+    grid:         "grid",
+    "inline-grid": "inline-grid",
+    hidden:       "none",
+    table:        "table",
+    contents:     "contents",
+    "list-item":  "list-item",
+  },
+
+  // ─── FLEX UTILITIES ────────────────────────────────────────────────────────
+  // Usage: chai-flex-row | chai-justify-center | chai-items-start
+  flex: {
+    direction: {
+      row:         "row",
+      "row-reverse": "row-reverse",
+      col:         "column",
+      "col-reverse": "column-reverse",
+    },
+    wrap: {
+      wrap:        "wrap",
+      "wrap-reverse": "wrap-reverse",
+      nowrap:      "nowrap",
+    },
+    justify: {
+      start:    "flex-start",
+      end:      "flex-end",
+      center:   "center",
+      between:  "space-between",
+      around:   "space-around",
+      evenly:   "space-evenly",
+      stretch:  "stretch",
+    },
+    align: {
+      start:    "flex-start",
+      end:      "flex-end",
+      center:   "center",
+      baseline: "baseline",
+      stretch:  "stretch",
+    },
+    self: {
+      auto:     "auto",
+      start:    "flex-start",
+      end:      "flex-end",
+      center:   "center",
+      stretch:  "stretch",
+      baseline: "baseline",
+    },
+  },
+
+  // ─── TEXT ALIGNMENT ────────────────────────────────────────────────────────
+  // Usage: chai-text-center | chai-text-right
+  textAlign: {
+    left:    "left",
+    center:  "center",
+    right:   "right",
+    justify: "justify",
+    start:   "start",
+    end:     "end",
+  },
+
+  // ─── TEXT DECORATION ───────────────────────────────────────────────────────
+  // Usage: chai-underline | chai-line-through | chai-no-underline
+  textDecoration: {
+    underline:    "underline",
+    overline:     "overline",
+    "line-through": "line-through",
+    "no-underline": "none",
+  },
+
+  // ─── TEXT TRANSFORM ────────────────────────────────────────────────────────
+  // Usage: chai-uppercase | chai-capitalize | chai-lowercase
+  textTransform: {
+    uppercase:   "uppercase",
+    lowercase:   "lowercase",
+    capitalize:  "capitalize",
+    "normal-case": "none",
+  },
+
+  // ─── POSITION ──────────────────────────────────────────────────────────────
+  // Usage: chai-relative | chai-absolute | chai-fixed | chai-sticky
+  position: {
+    static:   "static",
+    relative: "relative",
+    absolute: "absolute",
+    fixed:    "fixed",
+    sticky:   "sticky",
+  },
+
+  // ─── OVERFLOW ──────────────────────────────────────────────────────────────
+  // Usage: chai-overflow-hidden | chai-overflow-auto
+  overflow: {
+    auto:    "auto",
+    hidden:  "hidden",
+    clip:    "clip",
+    visible: "visible",
+    scroll:  "scroll",
+  },
+
+  // ─── CURSOR ────────────────────────────────────────────────────────────────
+  // Usage: chai-cursor-pointer | chai-cursor-not-allowed
+  cursor: {
+    auto:        "auto",
+    default:     "default",
+    pointer:     "pointer",
+    wait:        "wait",
+    text:        "text",
+    move:        "move",
+    "not-allowed": "not-allowed",
+    grab:        "grab",
+    grabbing:    "grabbing",
+  },
+
+  // ─── TRANSITION ────────────────────────────────────────────────────────────
+  // Usage: chai-transition | chai-transition-colors
+  transition: {
+    DEFAULT: "color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter",
+    none:    "none",
+    all:     "all",
+    colors:  "color, background-color, border-color, text-decoration-color, fill, stroke",
+    opacity: "opacity",
+    shadow:  "box-shadow",
+    transform: "transform",
+  },
+
+  // ─── DURATION ──────────────────────────────────────────────────────────────
+  // Usage: chai-duration-300 | chai-duration-500
+  transitionDuration: {
+    75:   "75ms",
+    100:  "100ms",
+    150:  "150ms",
+    200:  "200ms",
+    300:  "300ms",
+    500:  "500ms",
+    700:  "700ms",
+    1000: "1000ms",
+  },
+
+  // ─── FLEX SHORTHAND ────────────────────────────────────────────────────────
+  // Usage: chai-flex-1 | chai-flex-auto | chai-flex-none
+  flexShorthand: {
+    1:       "1 1 0%",
+    auto:    "1 1 auto",
+    initial: "0 1 auto",
+    none:    "none",
+  },
+
+  // ─── USER SELECT ───────────────────────────────────────────────────────────
+  // Usage: chai-select-none | chai-select-text | chai-select-all
+  userSelect: {
+    none: "none",
+    text: "text",
+    all:  "all",
+    auto: "auto",
+  },
+
+  // ─── BORDER SIDE MAP ───────────────────────────────────────────────────────
+  // Maps shorthand side letters to CSS property names
+  // Used by: chai-border-t-2 | chai-border-l-4
+  borderSide: {
+    t: "borderTopWidth",
+    r: "borderRightWidth",
+    b: "borderBottomWidth",
+    l: "borderLeftWidth",
+  },
+
+  // ─── BORDER RADIUS CORNERS ─────────────────────────────────────────────────
+  // Maps shorthand corner keys to CSS property arrays
+  // Used by: chai-rounded-tl-lg | chai-rounded-t-md
+  borderRadiusCorner: {
+    t:  ["borderTopLeftRadius",     "borderTopRightRadius"],
+    r:  ["borderTopRightRadius",    "borderBottomRightRadius"],
+    b:  ["borderBottomLeftRadius",  "borderBottomRightRadius"],
+    l:  ["borderTopLeftRadius",     "borderBottomLeftRadius"],
+    tl: ["borderTopLeftRadius"],
+    tr: ["borderTopRightRadius"],
+    br: ["borderBottomRightRadius"],
+    bl: ["borderBottomLeftRadius"],
+  },
+
+  // ─── POSITION OFFSET MAP ───────────────────────────────────────────────────
+  // Maps class prefix to CSS property name
+  // Used by: chai-top-4 | chai-left-0 | chai-bottom-8
+  positionOffset: {
+    top:    "top",
+    right:  "right",
+    bottom: "bottom",
+    left:   "left",
+  },
+
+  // ─── PRESET STYLES ─────────────────────────────────────────────────────────
+  // Multi-property style presets applied as a group
+  // Used by: chai-truncate | chai-sr-only
+  presets: {
+    truncate: {
+      overflow:     "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace:   "nowrap",
+    },
+    "sr-only": {
+      position:    "absolute",
+      width:       "1px",
+      height:      "1px",
+      padding:     "0",
+      margin:      "-1px",
+      overflow:    "hidden",
+      clip:        "rect(0,0,0,0)",
+      whiteSpace:  "nowrap",
+      borderWidth: "0",
+    },
+  },
+
+};

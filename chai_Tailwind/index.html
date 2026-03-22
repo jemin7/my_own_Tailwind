@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChaiTailwind ☕ — Anime Edition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      opacity: 0;
+      font-family: 'Nunito', sans-serif;
+      background: #05050f;
+      color: #f0f0f0;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 10% 20%, rgba(239,68,68,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 90% 80%, rgba(99,102,241,0.09) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px
+      );
+      pointer-events: none;
+    }
+
+    .wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    .bangers { font-family: 'Bangers', cursive; letter-spacing: 0.04em; }
+
+    @keyframes flicker {
+      0%,89%,91%,93%,100% { opacity: 1; }
+      90%,92% { opacity: 0.3; }
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes glow-pulse {
+      0%,100% { box-shadow: 0 0 10px 2px rgba(239,68,68,0.35); }
+      50% { box-shadow: 0 0 28px 6px rgba(239,68,68,0.7); }
+    }
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .flicker    { animation: flicker 5s infinite; }
+    .float      { animation: float 3.5s ease-in-out infinite; }
+    .glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+    .slide-up   { animation: slide-up 0.7s ease both; }
+
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(239,68,68,0.4), rgba(99,102,241,0.4), transparent); margin: 64px 0; }
+    .label   { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 24px; }
+    .gb      { border: 1px solid rgba(239,68,68,0.25); box-shadow: inset 0 0 20px rgba(239,68,68,0.04); }
+    .gb-blue { border: 1px solid rgba(99,102,241,0.3);  box-shadow: inset 0 0 20px rgba(99,102,241,0.04); }
+    .card    { transition: transform 0.25s ease; cursor: default; }
+    .card:hover { transform: translateY(-5px); }
+
+    .char-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .char-card:hover { transform: translateY(-8px) scale(1.02); }
+    .char-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.92) 100%);
+      z-index: 1;
+    }
+
+    .char-img {
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      filter: saturate(1.15) contrast(1.05);
+    }
+
+    .char-placeholder {
+      width: 100%;
+      height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06));
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    .char-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      padding: 20px;
+    }
+
+    .swatch { width: 50px; height: 46px; border-radius: 8px; display: flex; align-items: flex-end; padding: 4px; }
+    .swatch span { font-size: 9px; font-weight: 700; }
+
+    .code { font-family: monospace; font-size: 12px; background: rgba(255,255,255,0.08); padding: 2px 7px; border-radius: 4px; color: #f87171; }
+
+    .quote-card {
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-card::before {
+      content: '"';
+      position: absolute; top: -10px; left: 12px;
+      font-size: 100px; font-family: 'Bangers', cursive;
+      opacity: 0.05; line-height: 1; pointer-events: none;
+    }
+
+    .gdemo { padding: 14px; border-radius: 10px; text-align: center; font-size: 13px; font-weight: 700; transition: filter 0.2s; }
+    .gdemo:hover { filter: brightness(1.2); }
+
+    .sp-outer { background: rgba(239,68,68,0.08); border: 1px dashed rgba(239,68,68,0.25); border-radius: 6px; display: inline-flex; }
+    .sp-inner { background: #ef4444; color: white; font-size: 11px; font-weight: 700; border-radius: 4px; white-space: nowrap; }
+
+    .tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(5,5,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; height:56px;">
+    <span class="bangers" style="font-size:22px; color:#ef4444; letter-spacing:0.08em;">☕ ChaiTailwind</span>
+    <div style="display:flex; gap:24px; font-size:13px; font-weight:600; color:rgba(255,255,255,0.4);">
+      <a href="#colors" style="color:inherit; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Colors</a>
+      <a href="#type"   style="color:inherit; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#6366f1'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Typography</a>
+      <a href="#flex"   style="color:inherit; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Flex</a>
+      <a href="#grid"   style="color:inherit; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#eab308'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Grid</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="wrap" style="padding: 96px 24px 64px; text-align:center;">
+  <p class="label slide-up" style="animation-delay:0s;">Web Dev Cohort 2026 · Buildathon</p>
+  <h1 class="bangers flicker slide-up" style="font-size:clamp(60px,10vw,120px); color:#ef4444; text-shadow: 0 0 40px rgba(239,68,68,0.5); animation-delay:0.1s; line-height:1;">
+    ChaiTailwind
+  </h1>
+  <p class="slide-up" style="font-size:18px; color:#94a3b8; margin-top:16px; animation-delay:0.2s;">
+    A utility-first CSS engine — built from scratch with JavaScript
+  </p>
+  <p class="slide-up" style="font-size:13px; color:#475569; margin-top:8px; animation-delay:0.3s;">
+    Scans the DOM &nbsp;·&nbsp; reads <span class="code">chai-*</span> classes &nbsp;·&nbsp; applies inline styles
+  </p>
+
+  <div class="slide-up" style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:36px; animation-delay:0.4s;">
+    <div class="gb" style="padding:10px 20px; border-radius:999px; font-size:13px; font-weight:700;">
+      <span style="color:#ef4444;">22</span>&nbsp;<span style="color:#64748b;">color palettes</span>
+    </div>
+    <div class="gb" style="padding:10px 20px; border-radius:999px; font-size:13px; font-weight:700;">
+      <span style="color:#ef4444;">11</span>&nbsp;<span style="color:#64748b;">shades each</span>
+    </div>
+    <div class="gb" style="padding:10px 20px; border-radius:999px; font-size:13px; font-weight:700;">
+      <span style="color:#ef4444;">∞</span>&nbsp;<span style="color:#64748b;">arbitrary values</span>
+    </div>
+    <div class="gb" style="padding:10px 20px; border-radius:999px; font-size:13px; font-weight:700;">
+      <span style="color:#ef4444;">0</span>&nbsp;<span style="color:#64748b;">dependencies</span>
+    </div>
+  </div>
+
+  <div class="float" style="font-size:72px; margin-top:48px;">☕</div>
+</section>
+
+
+<!-- CHARACTER CARDS -->
+<section class="wrap" style="padding-bottom:80px;">
+  <p class="label">The Squad · developer life through anime</p>
+
+  <div id="char-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px;">
+
+    <div class="char-card gb" id="card-naruto">
+      <div class="char-placeholder">🍥</div>
+      <div class="char-info">
+        <p class="bangers" style="font-size:30px; color:#f97316; text-shadow:0 2px 10px rgba(0,0,0,0.8);">Naruto Uzumaki</p>
+        <p style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:2px;">chai-text-orange-400</p>
+        <p style="font-size:13px; color:rgba(255,255,255,0.85); margin-top:10px; font-style:italic; line-height:1.5;">
+          "I never go back on my word." — me at every deadline.
+        </p>
+        <div style="display:flex; gap:6px; margin-top:10px; flex-wrap:wrap;">
+          <span class="tag" style="background:rgba(249,115,22,0.2); color:#fb923c;">Naruto</span>
+          <span class="tag" style="background:rgba(249,115,22,0.1); color:#fdba74;">Never Give Up</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="char-card gb-blue" id="card-gojo">
+      <div class="char-placeholder">😎</div>
+      <div class="char-info">
+        <p class="bangers" style="font-size:30px; color:#818cf8; text-shadow:0 2px 10px rgba(0,0,0,0.8);">Gojo Satoru</p>
+        <p style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:2px;">chai-text-indigo-400</p>
+        <p style="font-size:13px; color:rgba(255,255,255,0.85); margin-top:10px; font-style:italic; line-height:1.5;">
+          "Throughout Stack Overflow, I alone have this error."
+        </p>
+        <div style="display:flex; gap:6px; margin-top:10px; flex-wrap:wrap;">
+          <span class="tag" style="background:rgba(99,102,241,0.2); color:#818cf8;">JJK</span>
+          <span class="tag" style="background:rgba(99,102,241,0.1); color:#a5b4fc;">Sigma Dev</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="char-card" style="border:1px solid rgba(239,68,68,0.2);" id="card-Itachi">
+      <div class="char-placeholder">👁️</div>
+      <div class="char-info">
+        <p class="bangers" style="font-size:30px; color:#ef4444; text-shadow:0 2px 10px rgba(0,0,0,0.8);">Itachi Uchiha</p>
+        <p style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:2px;">chai-text-red-500</p>
+        <p style="font-size:13px; color:rgba(255,255,255,0.85); margin-top:10px; font-style:italic; line-height:1.5;">
+          "Wake up to reality." — what your console says at 3am.
+        </p>
+        <div style="display:flex; gap:6px; margin-top:10px; flex-wrap:wrap;">
+          <span class="tag" style="background:rgba(239,68,68,0.2); color:#f87171;">Naruto</span>
+          <span class="tag" style="background:rgba(239,68,68,0.1); color:#fca5a5;">Final Boss</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="char-card" style="border:1px solid rgba(234,179,8,0.2);" id="card-luffy">
+      <div class="char-placeholder">🏴‍☠️</div>
+      <div class="char-info">
+        <p class="bangers" style="font-size:30px; color:#eab308; text-shadow:0 2px 10px rgba(0,0,0,0.8);">Monkey D. Luffy</p>
+        <p style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:2px;">chai-text-yellow-500</p>
+        <p style="font-size:13px; color:rgba(255,255,255,0.85); margin-top:10px; font-style:italic; line-height:1.5;">
+          "I don't want to write tests. I just want to ship and be free."
+        </p>
+        <div style="display:flex; gap:6px; margin-top:10px; flex-wrap:wrap;">
+          <span class="tag" style="background:rgba(234,179,8,0.2); color:#facc15;">One Piece</span>
+          <span class="tag" style="background:rgba(234,179,8,0.1); color:#fde047;">Pirate King</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<div class="divider wrap"></div>
+
+
+<!-- COLORS -->
+<section class="wrap" id="colors" style="padding-bottom:80px;">
+  <p class="label">01 — Colors · chai-bg-{color}-{shade}</p>
+
+  <p style="font-size:12px; color:#475569; margin-bottom:12px; font-weight:600;">Red · all 11 shades (50 → 950)</p>
+  <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:32px;">
+    <div class="swatch chai-bg-red-50" ><span style="color:#991b1b;">50</span></div>
+    <div class="swatch chai-bg-red-100"><span style="color:#991b1b;">100</span></div>
+    <div class="swatch chai-bg-red-200"><span style="color:#991b1b;">200</span></div>
+    <div class="swatch chai-bg-red-300"><span style="color:#fff;">300</span></div>
+    <div class="swatch chai-bg-red-400"><span style="color:#fff;">400</span></div>
+    <div class="swatch chai-bg-red-500 glow-pulse"><span style="color:#fff;">500</span></div>
+    <div class="swatch chai-bg-red-600"><span style="color:#fff;">600</span></div>
+    <div class="swatch chai-bg-red-700"><span style="color:#fff;">700</span></div>
+    <div class="swatch chai-bg-red-800"><span style="color:#fff;">800</span></div>
+    <div class="swatch chai-bg-red-900"><span style="color:#fff;">900</span></div>
+    <div class="swatch chai-bg-red-950"><span style="color:#fff;">950</span></div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(130px,1fr)); gap:10px; margin-bottom:24px;">
+    <div class="chai-bg-blue-500    chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">blue-500</div>
+    <div class="chai-bg-indigo-500  chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">indigo-500</div>
+    <div class="chai-bg-violet-500  chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">violet-500</div>
+    <div class="chai-bg-pink-500    chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">pink-500</div>
+    <div class="chai-bg-emerald-500 chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">emerald-500</div>
+    <div class="chai-bg-amber-500   chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">amber-500</div>
+    <div class="chai-bg-cyan-500    chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">cyan-500</div>
+    <div class="chai-bg-rose-500    chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">rose-500</div>
+    <div class="chai-bg-teal-500    chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">teal-500</div>
+    <div class="chai-bg-orange-500  chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">orange-500</div>
+    <div class="chai-bg-lime-500    chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">lime-500</div>
+    <div class="chai-bg-sky-500     chai-p-4 chai-rounded-lg card" style="font-size:12px; font-weight:700; color:#fff;">sky-500</div>
+  </div>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <div class="chai-bg-[#6f4e37] chai-px-6 chai-py-3 chai-rounded-full" style="font-size:13px; font-weight:700; color:#fff;">chai-bg-[#6f4e37]</div>
+    <div class="chai-bg-[#1a1a2e] chai-px-6 chai-py-3 chai-rounded-full gb" style="font-size:13px; font-weight:700; color:#fff;">chai-bg-[#1a1a2e]</div>
+    <div class="chai-text-[#f0a500] chai-px-6 chai-py-3 chai-rounded-full" style="font-size:13px; font-weight:700; background:rgba(240,165,0,0.1); border:1px solid rgba(240,165,0,0.2);">chai-text-[#f0a500] arbitrary</div>
+  </div>
+</section>
+
+
+<div class="divider wrap"></div>
+
+
+<!-- TYPOGRAPHY -->
+<section class="wrap" id="type" style="padding-bottom:80px;">
+  <p class="label">02 — Typography · chai-text-{size} · chai-font-{weight}</p>
+
+  <div class="gb" style="border-radius:20px; padding:32px; margin-bottom:24px;">
+    <p class="chai-text-xs   chai-mb-3" style="color:#475569;">chai-text-xs — hidden leaf village</p>
+    <p class="chai-text-sm   chai-mb-3" style="color:#64748b;">chai-text-sm — believe it!</p>
+    <p class="chai-text-base chai-mb-3" style="color:#94a3b8;">chai-text-base — I'm gonna be Hokage</p>
+    <p class="chai-text-lg   chai-mb-3 chai-font-medium" style="color:#cbd5e1;">chai-text-lg · font-medium — Jujutsu Kaisen</p>
+    <p class="chai-text-xl   chai-mb-3 chai-font-semibold" style="color:#e2e8f0;">chai-text-xl · font-semibold — Gojo Satoru</p>
+    <p class="chai-text-2xl  chai-mb-3 chai-font-bold chai-text-red-400">chai-text-2xl · font-bold — Demon Slayer</p>
+    <p class="chai-text-4xl  chai-mb-3 chai-font-extrabold chai-text-indigo-400">chai-text-4xl · extrabold</p>
+    <p class="bangers chai-text-6xl chai-text-red-500" style="text-shadow:0 0 20px rgba(239,68,68,0.4);">chai-text-6xl</p>
+  </div>
+
+  <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:center;">
+    <span class="chai-uppercase chai-tracking-widest chai-text-red-400 chai-font-bold" style="font-size:12px;">chai-uppercase</span>
+    <span class="chai-capitalize chai-text-indigo-400" style="font-size:14px;">chai-capitalize</span>
+    <span class="chai-underline  chai-text-pink-400" style="font-size:14px;">chai-underline</span>
+    <span class="chai-line-through chai-text-zinc-500" style="font-size:14px;">chai-line-through</span>
+    <span class="chai-italic chai-text-emerald-400" style="font-size:14px;">chai-italic</span>
+  </div>
+</section>
+
+
+<div class="divider wrap"></div>
+
+
+<!-- SPACING -->
+<section class="wrap" style="padding-bottom:80px;">
+  <p class="label">03 — Spacing · 1px per unit · chai-p-{n} · chai-m-{n}</p>
+
+  <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; margin-bottom:24px;">
+    <div class="sp-outer"><div class="sp-inner chai-p-1">p-1=1px</div></div>
+    <div class="sp-outer"><div class="sp-inner chai-p-4">p-4=4px</div></div>
+    <div class="sp-outer"><div class="sp-inner chai-p-8">p-8=8px</div></div>
+    <div class="sp-outer"><div class="sp-inner chai-p-16">p-16=16px</div></div>
+    <div class="sp-outer"><div class="sp-inner chai-p-24">p-24=24px</div></div>
+    <div class="sp-outer"><div class="sp-inner chai-p-[35px]" style="background:#b91c1c;">p-[35px] arbitrary</div></div>
+  </div>
+
+  <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+    <div class="chai-px-12 chai-py-2 chai-bg-indigo-500 chai-rounded-full chai-font-bold" style="font-size:13px; color:#fff;">chai-px-12 chai-py-2</div>
+    <div class="chai-px-3  chai-py-8 chai-bg-violet-500 chai-rounded-lg  chai-font-bold" style="font-size:13px; color:#fff;">chai-px-3 chai-py-8</div>
+    <div style="width:fit-content;" class="chai-mx-auto chai-px-8 chai-py-3 chai-bg-pink-500 chai-rounded-full chai-font-bold">
+      <span style="font-size:13px; color:#fff;">chai-mx-auto</span>
+    </div>
+  </div>
+</section>
+
+
+<div class="divider wrap"></div>
+
+
+<!-- FLEX -->
+<section class="wrap" id="flex" style="padding-bottom:80px;">
+  <p class="label">04 — Flexbox · chai-flex · chai-justify · chai-items · chai-gap</p>
+
+  <div class="chai-flex chai-gap-5 chai-flex-wrap" style="margin-bottom:32px;">
+
+    <div class="quote-card gb card chai-flex chai-flex-col chai-gap-3" style="flex:1; min-width:220px;">
+      <div class="chai-flex chai-items-center chai-gap-3">
+        <div style="width:40px; height:40px; border-radius:50%; background:rgba(249,115,22,0.2); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">🍥</div>
+        <div>
+          <p style="font-weight:700; font-size:14px; color:#fb923c;">Naruto</p>
+          <p style="font-size:11px; color:#64748b;">3am bug fix energy</p>
+        </div>
+      </div>
+      <p style="font-size:14px; color:#e2e8f0; line-height:1.6; font-style:italic;">"I never go back on my word — that's my ninja way."</p>
+      <p style="font-size:11px; color:#f97316;">= I will fix this CSS layout. Even if it kills me.</p>
+      <div style="display:flex; gap:6px; margin-top:4px; flex-wrap:wrap;">
+        <span class="code">chai-flex</span><span class="code">chai-flex-col</span><span class="code">chai-gap-3</span>
+      </div>
+    </div>
+
+    <div class="quote-card gb-blue card chai-flex chai-flex-col chai-gap-3" style="flex:1; min-width:220px;">
+      <div class="chai-flex chai-items-center chai-gap-3">
+        <div style="width:40px; height:40px; border-radius:50%; background:rgba(99,102,241,0.2); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">😎</div>
+        <div>
+          <p style="font-weight:700; font-size:14px; color:#818cf8;">Gojo Satoru</p>
+          <p style="font-size:11px; color:#64748b;">after solving the bug alone</p>
+        </div>
+      </div>
+      <p style="font-size:14px; color:#e2e8f0; line-height:1.6; font-style:italic;">"Sorry, but I'm gonna have to go all out... just this once."</p>
+      <p style="font-size:11px; color:#6366f1;">= Me adding console.log() everywhere.</p>
+      <div style="display:flex; gap:6px; margin-top:4px; flex-wrap:wrap;">
+        <span class="code">chai-items-center</span><span class="code">chai-gap-3</span>
+      </div>
+    </div>
+
+    <div class="quote-card card chai-flex chai-flex-col chai-gap-3" style="flex:1; min-width:220px; border:1px solid rgba(239,68,68,0.2);">
+      <div class="chai-flex chai-items-center chai-gap-3">
+        <div style="width:40px; height:40px; border-radius:50%; background:rgba(239,68,68,0.15); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;">👁️</div>
+        <div>
+          <p style="font-weight:700; font-size:14px; color:#ef4444;">Madara</p>
+          <p style="font-size:11px; color:#64748b;">your senior reviewing your PR</p>
+        </div>
+      </div>
+      <p style="font-size:14px; color:#e2e8f0; line-height:1.6; font-style:italic;">"Wake up to reality. Nothing ever goes as planned."</p>
+      <p style="font-size:11px; color:#ef4444;">= Your Friday deployment.</p>
+      <div style="display:flex; gap:6px; margin-top:4px; flex-wrap:wrap;">
+        <span class="code">chai-flex-wrap</span><span class="code">chai-justify-between</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="chai-flex chai-justify-between chai-items-center chai-px-6 chai-py-4 gb" style="border-radius:12px; margin-bottom:10px;">
+    <span style="font-weight:700; color:#ef4444; font-size:13px;">justify-start</span>
+    <span style="font-weight:700; color:#475569; font-size:13px;">justify-between</span>
+    <span style="font-weight:700; color:#6366f1; font-size:13px;">justify-end</span>
+  </div>
+  <div class="chai-flex chai-justify-center chai-items-center chai-px-6 chai-py-4 gb-blue" style="border-radius:12px; gap:10px;">
+    <span style="font-weight:700; color:#818cf8; font-size:13px;">chai-justify-center</span>
+    <span style="color:#475569; font-size:13px;">+</span>
+    <span style="font-weight:700; color:#a5b4fc; font-size:13px;">chai-items-center</span>
+  </div>
+</section>
+
+
+<div class="divider wrap"></div>
+
+
+<!-- GRID -->
+<section class="wrap" id="grid" style="padding-bottom:80px;">
+  <p class="label">05 — Grid · chai-grid · chai-grid-cols-{n} · chai-col-span-{n}</p>
+
+  <p style="font-size:12px; color:#475569; font-weight:600; margin-bottom:10px;">chai-grid-cols-3 · chai-gap-3</p>
+  <div class="chai-grid chai-grid-cols-3 chai-gap-3" style="margin-bottom:24px;">
+    <div class="gdemo chai-bg-red-500"    style="color:#fff;">Attack on Titan</div>
+    <div class="gdemo chai-bg-indigo-500" style="color:#fff;">Jujutsu Kaisen</div>
+    <div class="gdemo chai-bg-violet-500" style="color:#fff;">Demon Slayer</div>
+  </div>
+
+  <p style="font-size:12px; color:#475569; font-weight:600; margin-bottom:10px;">chai-grid-cols-4 · chai-col-span-2</p>
+  <div class="chai-grid chai-grid-cols-4 chai-gap-3" style="margin-bottom:24px;">
+    <div class="gdemo chai-col-span-2 chai-bg-pink-500"    style="color:#fff;">col-span-2 → One Piece</div>
+    <div class="gdemo chai-bg-amber-500"   style="color:#fff;">HxH</div>
+    <div class="gdemo chai-bg-emerald-500" style="color:#fff;">FMA:B</div>
+  </div>
+
+  <div class="chai-grid chai-grid-cols-4 chai-gap-4">
+    <div class="gb card" style="border-radius:14px; padding:20px; text-align:center;">
+      <p class="bangers" style="font-size:36px; color:#ef4444;">22</p>
+      <p style="font-size:11px; color:#475569;">color palettes</p>
+    </div>
+    <div class="gb card" style="border-radius:14px; padding:20px; text-align:center;">
+      <p class="bangers" style="font-size:36px; color:#6366f1;">11</p>
+      <p style="font-size:11px; color:#475569;">shades each</p>
+    </div>
+    <div class="gb card" style="border-radius:14px; padding:20px; text-align:center;">
+      <p class="bangers" style="font-size:36px; color:#10b981;">50+</p>
+      <p style="font-size:11px; color:#475569;">spacing steps</p>
+    </div>
+    <div class="gb card" style="border-radius:14px; padding:20px; text-align:center;">
+      <p class="bangers" style="font-size:36px; color:#eab308;">∞</p>
+      <p style="font-size:11px; color:#475569;">arbitrary vals</p>
+    </div>
+  </div>
+</section>
+
+
+<div class="divider wrap"></div>
+
+
+<!-- BORDERS + SHADOW -->
+<section class="wrap" style="padding-bottom:80px;">
+  <p class="label">06 — Borders · Radius · Shadow</p>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:24px;">
+    <div class="chai-border chai-border-red-500 chai-p-4 chai-rounded-none" style="font-size:11px; font-weight:700; color:#f87171; width:88px; text-align:center;">none</div>
+    <div class="chai-border chai-border-red-500 chai-p-4 chai-rounded-sm"   style="font-size:11px; font-weight:700; color:#f87171; width:88px; text-align:center;">sm</div>
+    <div class="chai-border chai-border-red-500 chai-p-4 chai-rounded"      style="font-size:11px; font-weight:700; color:#f87171; width:88px; text-align:center;">default</div>
+    <div class="chai-border chai-border-red-500 chai-p-4 chai-rounded-lg"   style="font-size:11px; font-weight:700; color:#f87171; width:88px; text-align:center;">lg</div>
+    <div class="chai-border chai-border-red-500 chai-p-4 chai-rounded-2xl"  style="font-size:11px; font-weight:700; color:#f87171; width:88px; text-align:center;">2xl</div>
+    <div class="chai-border chai-border-red-500 chai-p-4 chai-rounded-full" style="font-size:11px; font-weight:700; color:#f87171; width:88px; text-align:center;">full</div>
+  </div>
+
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <div class="chai-p-4 chai-rounded-xl chai-shadow-sm  chai-bg-zinc-900 chai-font-bold" style="font-size:12px; color:#fff;">shadow-sm</div>
+    <div class="chai-p-4 chai-rounded-xl chai-shadow     chai-bg-zinc-900 chai-font-bold" style="font-size:12px; color:#fff;">shadow</div>
+    <div class="chai-p-4 chai-rounded-xl chai-shadow-md  chai-bg-zinc-900 chai-font-bold" style="font-size:12px; color:#fff;">shadow-md</div>
+    <div class="chai-p-4 chai-rounded-xl chai-shadow-lg  chai-bg-zinc-900 chai-font-bold" style="font-size:12px; color:#fff;">shadow-lg</div>
+    <div class="chai-p-4 chai-rounded-xl chai-shadow-xl  chai-bg-zinc-900 chai-font-bold" style="font-size:12px; color:#fff;">shadow-xl</div>
+    <div class="chai-p-4 chai-rounded-xl chai-shadow-2xl chai-bg-zinc-900 chai-font-bold" style="font-size:12px; color:#fff;">shadow-2xl</div>
+  </div>
+</section>
+
+
+<div class="divider wrap"></div>
+
+
+<!-- OPACITY -->
+<section class="wrap" style="padding-bottom:80px;">
+  <p class="label">07 — Opacity · chai-opacity-{n}</p>
+  <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end;">
+    <div class="chai-opacity-100 chai-bg-red-500 chai-p-4 chai-rounded-lg" style="font-size:11px; font-weight:700; color:#fff; width:70px; text-align:center;">100</div>
+    <div class="chai-opacity-75  chai-bg-red-500 chai-p-4 chai-rounded-lg" style="font-size:11px; font-weight:700; color:#fff; width:70px; text-align:center;">75</div>
+    <div class="chai-opacity-50  chai-bg-red-500 chai-p-4 chai-rounded-lg" style="font-size:11px; font-weight:700; color:#fff; width:70px; text-align:center;">50</div>
+    <div class="chai-opacity-25  chai-bg-red-500 chai-p-4 chai-rounded-lg" style="font-size:11px; font-weight:700; color:#fff; width:70px; text-align:center;">25</div>
+    <div class="chai-opacity-10  chai-bg-red-500 chai-p-4 chai-rounded-lg" style="font-size:11px; font-weight:700; color:#fff; width:70px; text-align:center;">10</div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(255,255,255,0.06); padding:48px 0;">
+  <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px;">
+    <div>
+      <h2 class="bangers" style="font-size:48px; color:#ef4444; text-shadow:0 0 20px rgba(239,68,68,0.3);">Built by Jemin Desai</h2>
+      <p style="color:#475569; font-size:13px; margin-top:4px;">Web Dev Cohort 2026 · ChaiCode · Buildathon</p>
+      <div style="display:flex; gap:8px; margin-top:16px; flex-wrap:wrap;">
+        <span class="tag" style="background:rgba(239,68,68,0.15); color:#f87171;">JavaScript</span>
+        <span class="tag" style="background:rgba(255,255,255,0.06); color:#94a3b8;">DOM Manipulation</span>
+        <span class="tag" style="background:rgba(255,255,255,0.06); color:#94a3b8;">CSS Engine</span>
+        <span class="tag" style="background:rgba(255,255,255,0.06); color:#94a3b8;">Zero Dependencies</span>
+      </div>
+    </div>
+    <div class="float" style="text-align:center;">
+      <div style="font-size:64px; line-height:1;">☕</div>
+      <p style="font-size:12px; font-weight:700; color:#ef4444; margin-top:6px;">ChaiTailwind</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Engine -->
+<script type="module" src="engine.js"></script>
+
+<!-- Jikan API — load character images -->
+<script>
+  // Jikan API character IDs (MyAnimeList)
+  const characters = [
+    { malId: 17,  cardId: 'card-naruto' },  // Naruto Uzumaki
+    { malId: 52,  cardId: 'card-gojo'   },  // Gojo Satoru
+    { malId: 14,  cardId: 'card-Itachi' },  // Itachi Uchiha 
+    { malId: 40,  cardId: 'card-luffy'  },  // Monkey D. Luffy
+  ];
+
+  async function loadChar(malId, cardId) {
+    try {
+      const res  = await fetch('https://api.jikan.moe/v4/characters/' + malId);
+      if (!res.ok) return;
+      const data = await res.json();
+      const url  = data?.data?.images?.jpg?.image_url;
+      if (!url) return;
+
+      const card = document.getElementById(cardId);
+      if (!card) return;
+
+      const ph = card.querySelector('.char-placeholder');
+      if (!ph) return;
+
+      const img = new Image();
+      img.src       = url;
+      img.alt       = data?.data?.name ?? '';
+      img.className = 'char-img';
+      img.loading   = 'lazy';
+      ph.replaceWith(img);
+    } catch(e) {
+      // keep emoji placeholder if API fails
+    }
+  }
+
+  // stagger requests — Jikan rate limit is 3/sec
+  characters.forEach((c, i) => {
+    setTimeout(() => loadChar(c.malId, c.cardId), i * 450);
+  });
+</script>
+
+</body>
+</html>
