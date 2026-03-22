@@ -14,7 +14,7 @@
 //   • Arbitrary values in brackets             → chai-p-[13px], chai-bg-[#ff5733]
 //   • Grid utilities                           → chai-grid-cols-3
 //   • MutationObserver for dynamic elements
-//   • FOUC prevention (add body{opacity:0} in your CSS)
+//   • FOUC prevention (add body{opacity:0} in your CSS) 
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { ChaiConfig } from "./config.js";

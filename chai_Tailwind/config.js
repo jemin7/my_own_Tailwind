@@ -508,7 +508,7 @@ export const ChaiConfig = {
   // ─── BORDER SIDE MAP ───────────────────────────────────────────────────────
   // Maps shorthand side letters to CSS property names
   // Used by: chai-border-t-2 | chai-border-l-4
-  borderSide: {
+  borderSide: { 
     t: "borderTopWidth",
     r: "borderRightWidth",
     b: "borderBottomWidth",
@@ -560,5 +560,5 @@ export const ChaiConfig = {
       borderWidth: "0",
     },
   },
-
+ 
 };
