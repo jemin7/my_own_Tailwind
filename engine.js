@@ -1,30 +1,8 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// chai-tailwind | engine.js
-// Scans the DOM for chai-* classes and applies them as inline styles.
-//
-// How it works:
-//   1. querySelectorAll("*") — grab every element
-//   2. filter classes starting with "chai-"
-//   3. strip "chai-", split into prop + value
-//   4. match against STATIC map (keywords) or DYNAMIC list (numbers/colors)
-//   5. apply inline styles, remove the chai-* class
-//
-// Supports:
-//   • Full Tailwind color palette with shades  → chai-bg-red-500
-//   • Arbitrary values in brackets             → chai-p-[13px], chai-bg-[#ff5733]
-//   • Grid utilities                           → chai-grid-cols-3
-//   • MutationObserver for dynamic elements
-//   • FOUC prevention (add body{opacity:0} in your CSS) 
-// ─────────────────────────────────────────────────────────────────────────────
+
 
 import { ChaiConfig } from "./config.js";
 
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
 
-// Resolve color from ChaiConfig
-// "white"   → "#ffffff"
-// "red-500" → "#ef4444"
-// "red"     → "#ef4444" (500 shade as default)
 function resolveColor(val) {
   const entry = ChaiConfig.colors[val];
 
@@ -46,23 +24,19 @@ function resolveColor(val) {
   return null;
 }
 
-// Resolve spacing from ChaiConfig, fallback to raw px
 // "4" → "4px"  |  "0.5" → "0.5px"  |  "auto" → stays "auto" (handled separately)
 function resolveSpacing(val) {
   return ChaiConfig.spacing[val] ?? val + "px";
 }
 
 // Extract arbitrary bracket value
-// "[13px]" → "13px"  |  "[#ff5733]" → "#ff5733"
 function arbitrary(val) {
   const match = val && val.match(/^\[(.+)\]$/);
   return match ? match[1] : null;
 }
 
 // ─── STATIC MAP ──────────────────────────────────────────────────────────────
-// Built once at startup from ChaiConfig.
-// keyword-only classes — exact string match, no numbers, no colors.
-// O(1) lookup — fastest path.
+
 
 const STATIC = {};
 
@@ -214,7 +188,6 @@ STATIC["ease-out"]     = { transitionTimingFunction: "cubic-bezier(0,0,0.2,1)" }
 STATIC["ease-in-out"]  = { transitionTimingFunction: "cubic-bezier(0.4,0,0.2,1)" };
 
 // ─── APPLY STYLES ────────────────────────────────────────────────────────────
-// Core logic — given one element, find its chai-* classes and apply styles.
 
 function processElement(el) {
   const classes = Array.from(el.classList);
@@ -222,28 +195,26 @@ function processElement(el) {
   classes.forEach((className) => {
     if (!className.startsWith("chai-")) return;
 
-    // strip "chai-" → "p-4", "bg-red-500", "text-center"
+    
     const utility = className.slice(5);
 
-    // ── Step 1: Static exact match (fastest path) ──────────────────────────
+    
     if (STATIC[utility]) {
       Object.assign(el.style, STATIC[utility]);
       el.classList.remove(className);
       return;
     }
 
-    // ── Step 2: Dynamic — split into prop + val ────────────────────────────
-    // "bg-red-500" → prop="bg", val="red-500"
-    // "p-4"        → prop="p",  val="4"
+    
     const dashIndex = utility.indexOf("-");
     if (dashIndex === -1) {
       el.classList.remove(className);
-      return; // single word not in STATIC → unknown
+      return; 
     }
 
-    const prop = utility.slice(0, dashIndex);          // "bg", "p", "text"
-    const val  = utility.slice(dashIndex + 1);         // "red-500", "4", "center"
-    const arb  = arbitrary(val);                       // "13px" if val="[13px]", else null
+    const prop = utility.slice(0, dashIndex);          
+    const val  = utility.slice(dashIndex + 1);         
+    const arb  = arbitrary(val);                      
 
     // ── Spacing ──────────────────────────────────────────────────────────────
     if (prop === "p")  el.style.padding       = arb ?? resolveSpacing(val);
@@ -283,22 +254,20 @@ function processElement(el) {
     if (prop === "max-h") el.style.maxHeight = arb ?? resolveSpacing(val);
 
     // ── Colors ────────────────────────────────────────────────────────────────
-    // supports: chai-bg-red | chai-bg-red-500 | chai-bg-[#ff5733]
     if (prop === "bg") {
       el.style.backgroundColor = arb ?? resolveColor(val) ?? val;
     }
 
     // ── Text: color + size ────────────────────────────────────────────────────
-    // supports: chai-text-red-500 | chai-text-[#hex] | chai-text-[20px]
+   
     if (prop === "text") {
       if (arb) {
-        // arbitrary: color if starts with # / rgb / hsl, else font-size
+        
         if (/^#|^rgb|^hsl/.test(arb)) el.style.color    = arb;
         else                           el.style.fontSize = arb;
       } else {
         const c = resolveColor(val);
         if (c) el.style.color = c;
-        // font size and text align are already in STATIC — nothing to do here
       }
     }
 
@@ -311,8 +280,8 @@ function processElement(el) {
     // ── Border side width: chai-border-t | chai-border-t-2 ────────────────────
     if (prop === "border") {
       const sideMap = { t: "borderTopWidth", r: "borderRightWidth", b: "borderBottomWidth", l: "borderLeftWidth" };
-      const side    = val[0]; // "t", "r", "b", "l"
-      const num     = val.slice(2); // "2" in "t-2", or "" in "t"
+      const side    = val[0]; 
+      const num     = val.slice(2); 
       if (sideMap[side]) {
         el.style[sideMap[side]] = num ? num + "px" : ChaiConfig.borderWidth.DEFAULT;
         el.style.borderStyle = "solid";
@@ -327,7 +296,6 @@ function processElement(el) {
         const radius  = ChaiConfig.borderRadius[cornerMatch[2]] ?? cornerMatch[2] + "px";
         if (corners) corners.forEach(p => el.style[p] = radius);
       } else {
-        // arbitrary: chai-rounded-[8px]
         if (arb) el.style.borderRadius = arb;
       }
     }
@@ -380,7 +348,6 @@ function processElement(el) {
     // ── Shadow (arbitrary) ───────────────────────────────────────────────────
     if (prop === "shadow" && arb) el.style.boxShadow = arb;
 
-    // Remove the chai-* class after applying
     el.classList.remove(className);
   });
 }
@@ -392,20 +359,17 @@ function scanDOM() {
 }
 
 // ─── MUTATION OBSERVER ───────────────────────────────────────────────────────
-// Watches for:
-//   1. New elements added to the DOM (e.g. JS inserting a card)
-//   2. Class attribute changes on existing elements
+
 
 function watchDOM() {
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
-      // Newly added nodes
+      
       mutation.addedNodes.forEach((node) => {
         if (node.nodeType !== Node.ELEMENT_NODE) return;
         processElement(node);
         node.querySelectorAll("*").forEach(processElement);
       });
-      // Class attribute changed on an existing element
       if (mutation.type === "attributes" && mutation.attributeName === "class") {
         processElement(mutation.target);
       }
@@ -424,7 +388,7 @@ function watchDOM() {
 
 function init() {
   scanDOM();
-  document.body.style.opacity = "1"; // FOUC fix — add body{opacity:0} in your CSS
+  document.body.style.opacity = "1"; 
   watchDOM();
   console.log("☕ ChaiTailwind engine ready");
 }

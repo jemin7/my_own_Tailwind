@@ -1,14 +1,8 @@
-// chai-tailwind | config.js
-// Tailwind-inspired config adapted for the ChaiTailwind engine.
-// Spacing scale: 1px per unit  →  chai-p-4 = padding: 4px
-// Colors: Full Tailwind palette (shades 50–950)
-// Loading: ES Module  →  import { ChaiConfig } from './config.js'
 
 export const ChaiConfig = {
 
   // ─── SPACING ───────────────────────────────────────────────────────────────
-  // 1 unit = 1px
-  // Used by: padding, margin, gap, width, height, etc.
+
   spacing: {
     0:   "0px",
     px:  "1px",
@@ -48,8 +42,7 @@ export const ChaiConfig = {
   },
 
   // ─── COLORS ────────────────────────────────────────────────────────────────
-  // Full Tailwind palette.
-  // Usage: chai-bg-red-500 | chai-text-blue-300 | chai-border-zinc-700
+
   colors: {
 
     // Neutrals
@@ -174,7 +167,6 @@ export const ChaiConfig = {
   },
 
   // ─── FONT SIZES ────────────────────────────────────────────────────────────
-  // Usage: chai-text-sm | chai-text-2xl
   fontSize: {
     xs:   "0.75rem",    // 12px
     sm:   "0.875rem",   // 14px
@@ -192,7 +184,6 @@ export const ChaiConfig = {
   },
 
   // ─── FONT WEIGHT ───────────────────────────────────────────────────────────
-  // Usage: chai-font-bold | chai-font-medium
   fontWeight: {
     thin:       "100",
     extralight: "200",
@@ -206,7 +197,6 @@ export const ChaiConfig = {
   },
 
   // ─── LINE HEIGHT ───────────────────────────────────────────────────────────
-  // Usage: chai-leading-tight | chai-leading-8
   lineHeight: {
     none:    "1",
     tight:   "1.25",
@@ -225,7 +215,6 @@ export const ChaiConfig = {
   },
 
   // ─── LETTER SPACING ────────────────────────────────────────────────────────
-  // Usage: chai-tracking-wide | chai-tracking-tight
   letterSpacing: {
     tighter: "-0.05em",
     tight:   "-0.025em",
@@ -236,7 +225,6 @@ export const ChaiConfig = {
   },
 
   // ─── BORDER RADIUS ─────────────────────────────────────────────────────────
-  // Usage: chai-rounded | chai-rounded-lg | chai-rounded-full
   borderRadius: {
     none:  "0px",
     sm:    "0.125rem",   // 2px
@@ -250,7 +238,6 @@ export const ChaiConfig = {
   },
 
   // ─── BORDER WIDTH ──────────────────────────────────────────────────────────
-  // Usage: chai-border | chai-border-2 | chai-border-4
   borderWidth: {
     DEFAULT: "1px",
     0: "0px",
@@ -260,7 +247,6 @@ export const ChaiConfig = {
   },
 
   // ─── BOX SHADOW ────────────────────────────────────────────────────────────
-  // Usage: chai-shadow | chai-shadow-md | chai-shadow-xl
   boxShadow: {
     sm:      "0 1px 2px 0 rgb(0 0 0 / 0.05)",
     DEFAULT: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
@@ -273,7 +259,6 @@ export const ChaiConfig = {
   },
 
   // ─── OPACITY ───────────────────────────────────────────────────────────────
-  // Usage: chai-opacity-50 | chai-opacity-75
   opacity: {
     0:   "0",
     5:   "0.05",
@@ -293,7 +278,6 @@ export const ChaiConfig = {
   },
 
   // ─── Z-INDEX ───────────────────────────────────────────────────────────────
-  // Usage: chai-z-10 | chai-z-50
   zIndex: {
     auto: "auto",
     0:  "0",
@@ -305,8 +289,7 @@ export const ChaiConfig = {
   },
 
   // ─── WIDTH / HEIGHT ────────────────────────────────────────────────────────
-  // Fractional + keyword values (spacing scale handled separately)
-  // Usage: chai-w-full | chai-h-screen | chai-w-1/2
+
   sizing: {
     auto:    "auto",
     full:    "100%",
@@ -344,7 +327,6 @@ export const ChaiConfig = {
   },
 
   // ─── DISPLAY ───────────────────────────────────────────────────────────────
-  // Usage: chai-block | chai-flex | chai-grid | chai-hidden
   display: {
     block:        "block",
     inline:       "inline",
@@ -360,7 +342,6 @@ export const ChaiConfig = {
   },
 
   // ─── FLEX UTILITIES ────────────────────────────────────────────────────────
-  // Usage: chai-flex-row | chai-justify-center | chai-items-start
   flex: {
     direction: {
       row:         "row",
@@ -400,7 +381,6 @@ export const ChaiConfig = {
   },
 
   // ─── TEXT ALIGNMENT ────────────────────────────────────────────────────────
-  // Usage: chai-text-center | chai-text-right
   textAlign: {
     left:    "left",
     center:  "center",
@@ -411,7 +391,6 @@ export const ChaiConfig = {
   },
 
   // ─── TEXT DECORATION ───────────────────────────────────────────────────────
-  // Usage: chai-underline | chai-line-through | chai-no-underline
   textDecoration: {
     underline:    "underline",
     overline:     "overline",
@@ -420,7 +399,6 @@ export const ChaiConfig = {
   },
 
   // ─── TEXT TRANSFORM ────────────────────────────────────────────────────────
-  // Usage: chai-uppercase | chai-capitalize | chai-lowercase
   textTransform: {
     uppercase:   "uppercase",
     lowercase:   "lowercase",
@@ -429,7 +407,6 @@ export const ChaiConfig = {
   },
 
   // ─── POSITION ──────────────────────────────────────────────────────────────
-  // Usage: chai-relative | chai-absolute | chai-fixed | chai-sticky
   position: {
     static:   "static",
     relative: "relative",
@@ -439,7 +416,6 @@ export const ChaiConfig = {
   },
 
   // ─── OVERFLOW ──────────────────────────────────────────────────────────────
-  // Usage: chai-overflow-hidden | chai-overflow-auto
   overflow: {
     auto:    "auto",
     hidden:  "hidden",
@@ -449,7 +425,6 @@ export const ChaiConfig = {
   },
 
   // ─── CURSOR ────────────────────────────────────────────────────────────────
-  // Usage: chai-cursor-pointer | chai-cursor-not-allowed
   cursor: {
     auto:        "auto",
     default:     "default",
@@ -463,7 +438,6 @@ export const ChaiConfig = {
   },
 
   // ─── TRANSITION ────────────────────────────────────────────────────────────
-  // Usage: chai-transition | chai-transition-colors
   transition: {
     DEFAULT: "color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter",
     none:    "none",
@@ -475,7 +449,6 @@ export const ChaiConfig = {
   },
 
   // ─── DURATION ──────────────────────────────────────────────────────────────
-  // Usage: chai-duration-300 | chai-duration-500
   transitionDuration: {
     75:   "75ms",
     100:  "100ms",
@@ -488,7 +461,6 @@ export const ChaiConfig = {
   },
 
   // ─── FLEX SHORTHAND ────────────────────────────────────────────────────────
-  // Usage: chai-flex-1 | chai-flex-auto | chai-flex-none
   flexShorthand: {
     1:       "1 1 0%",
     auto:    "1 1 auto",
@@ -497,7 +469,7 @@ export const ChaiConfig = {
   },
 
   // ─── USER SELECT ───────────────────────────────────────────────────────────
-  // Usage: chai-select-none | chai-select-text | chai-select-all
+ 
   userSelect: {
     none: "none",
     text: "text",
@@ -506,8 +478,7 @@ export const ChaiConfig = {
   },
 
   // ─── BORDER SIDE MAP ───────────────────────────────────────────────────────
-  // Maps shorthand side letters to CSS property names
-  // Used by: chai-border-t-2 | chai-border-l-4
+ 
   borderSide: { 
     t: "borderTopWidth",
     r: "borderRightWidth",
@@ -516,8 +487,7 @@ export const ChaiConfig = {
   },
 
   // ─── BORDER RADIUS CORNERS ─────────────────────────────────────────────────
-  // Maps shorthand corner keys to CSS property arrays
-  // Used by: chai-rounded-tl-lg | chai-rounded-t-md
+  
   borderRadiusCorner: {
     t:  ["borderTopLeftRadius",     "borderTopRightRadius"],
     r:  ["borderTopRightRadius",    "borderBottomRightRadius"],
@@ -530,8 +500,7 @@ export const ChaiConfig = {
   },
 
   // ─── POSITION OFFSET MAP ───────────────────────────────────────────────────
-  // Maps class prefix to CSS property name
-  // Used by: chai-top-4 | chai-left-0 | chai-bottom-8
+ 
   positionOffset: {
     top:    "top",
     right:  "right",
@@ -540,8 +509,7 @@ export const ChaiConfig = {
   },
 
   // ─── PRESET STYLES ─────────────────────────────────────────────────────────
-  // Multi-property style presets applied as a group
-  // Used by: chai-truncate | chai-sr-only
+ 
   presets: {
     truncate: {
       overflow:     "hidden",
